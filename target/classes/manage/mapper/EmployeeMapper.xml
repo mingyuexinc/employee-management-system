@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.kj.mapper.EmployeeMapper">
+
+    <resultMap id="EmployeeMap" type="Employee">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <result property="departmentId" column="department"/>
+        <!-- id:主键映射-->
+        <association property="department" javaType="Department">
+            <id property="did" column="did"/>
+            <result property="departmentName" column="departmentName"/>
+        </association>
+    </resultMap>
+
+    <!--获得所有员工的信息-->
+    <select id="queryEmployeeList" resultMap="EmployeeMap">
+        select e.id,e.name,e.email,e.gender,e.birth,d.departmentName,d.did
+        from manage.department d,manage.employee e
+        where e.department = d.did
+    </select>
+
+    <!--通过id查询员工-->
+    <select id="queryEmployeeByID" resultType="Employee">
+        select * from manage.employee where id = #{id};
+    </select>
+
+    <!--通过id删除员工-->
+    <delete id="deleteEmployeeByID" parameterType="int">
+        delete from manage.employee where id = #{id};
+    </delete>
+
+    <!--增加员工-->
+    <insert id="addEmployee" parameterType="Employee">
+        insert into manage.employee(name, email, gender, birth, department) VALUES
+        (#{name},#{email},#{gender},#{birth},#{departmentId});
+    </insert>
+
+    <!--修改员工-->
+    <update id="updateEmployee" parameterType="Employee">
+        update manage.employee
+        set name = #{name},
+            email = #{email},
+            gender = #{gender},
+            birth = #{birth},
+            department = #{departmentId}
+        where id = #{id}
+    </update>
+
+</mapper>

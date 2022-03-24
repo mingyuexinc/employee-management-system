@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.kj.mapper.DepartmentMapper">
+    <!--获得所有部门的信息-->
+    <select id="queryDepartmentList" resultType="Department">
+        select * from manage.department
+    </select>
+
+    <!--通过id查询部门-->
+    <select id="queryDepartmentByID" resultType="Department">
+        select * from manage.department where did = #{id}
+    </select>
+
+    <!--添加部门信息-->
+    <insert id="addDepartment" parameterType="Department">
+        insert into manage.department (did, departmentName) VALUES (#{did},#{departmentName})
+    </insert>
+
+    <!--修改部门信息-->
+    <update id="updateDepartment" parameterType="Department">
+        update manage.department
+        set departmentName = #{departmentName}
+        where did = #{did}
+    </update>
+
+    <!--删除部门信息-->
+    <delete id="deleteDepartment" parameterType="int">
+        delete from manage.department where did = #{did}
+    </delete>
+</mapper>

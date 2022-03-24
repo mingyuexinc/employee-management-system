@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.kj.mapper.UserMapper">
+    <!--查询全部用户-->
+    <select id="queryUserList" resultType="User">
+        select * from manage.user;
+    </select>
+
+    <!--根据id查询用户-->
+    <select id="queryUserByID" resultType="User">
+        select * from manage.user where id = #{id};
+    </select>
+
+    <!--根据username查询用户-->
+    <select id="queryUserByName" resultType="User">
+        select * from manage.user where username = #{username};
+    </select>
+
+</mapper>
